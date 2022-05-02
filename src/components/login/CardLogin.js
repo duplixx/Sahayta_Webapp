@@ -1,54 +1,52 @@
-import React from 'react';
+import React from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import Login from "./login";
 import GoogleButton from "react-google-button";
-import {useRef,useEffect,useState} from 'react';
-import loginwith from './loginwith';
-import { useAuth } from '../../context/authContext';
-  
+import { useRef, useEffect, useState } from "react";
+import { useAuth } from "../../context/authContext";
 
 export default function CardLogin() {
-  const [email,setemail]=useState();
-  const [Password,setPassword]=useState();
-  const [err,setError]=useState();
-  const {Login}=useAuth();
-  const handleSubmit=async(e)=>{
+  const [email, setEmail] = useState();
+  const [Password, setPassword] = useState();
+  const [error, setError] = useState();
+  const { logIn, googleSignIn } = useAuth();
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    try{
-      await Login(email,Password);
-
-    }catch(err){
+    setError("");
+    try {
+      await logIn(email, Password);
+      navigate("/signup");
+    } catch (err) {
       setError(err.message);
-
     }
   };
-  const handleGoogleSignUp=async(e)=>{
+  const handleGoogleSignUp = async (e) => {
     e.preventDefault();
-    try{
-      // await googleSignIn();
-      // navigate("../../dashboard");
-
-    }catch (err){
+    try {
+      await googleSignIn();
+      navigate("/signup");
+    } catch (err) {
       setError(err.message);
     }
-  }
-  
-  
+  };
+
   return (
-    <>
-      <div className="flex justify-end align-end w-full" >
+    <div>
+      <div className="flex justify-end align-end w-full">
         <div className="w-full lg:w-4/12 px-4 mx-auto pt-6">
           <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg bg-gradient-to-t from-white to-none rounded-lg backdrop-blur-sm linear border-0">
             <div className="rounded-t mb-0 px-6 py-6">
               <div className="text-center mb-3">
                 <h6 className="text-black text-5xl font-bold" id="p1">
-                  Log in 
+                  Log in
                 </h6>
               </div>
               <div className="text-center mb-3">
-                <button className="text-black text-5xl font-bold" onclick={5+5}>
-                  Sign in 
+                <button
+                  className="text-black text-5xl font-bold"
+                  onclick={5 + 5}
+                >
+                  Sign in
                 </button>
               </div>
 
@@ -60,7 +58,6 @@ export default function CardLogin() {
                   <label
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
-
                   >
                     Email
                   </label>
@@ -68,8 +65,7 @@ export default function CardLogin() {
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Email"
-                    onChange={(e)=>setemail(e.target.value)}
-
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <div className="relative w-full mb-3">
@@ -84,8 +80,7 @@ export default function CardLogin() {
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder="Password"
                     required
-                    onChange={(e)=>setPassword(e.target.value)}
-                    
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div>
@@ -103,21 +98,27 @@ export default function CardLogin() {
                 <div className="text-center mt-6">
                   <button
                     className="bg-blue-500 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                    type="button" 
+                    type="button"
                   >
                     {" "}
                     Log In{" "}
                   </button>
                   <div>
-                      {/* <GoogleButton className="g-btn" type="dark" onclick={handleGoogleSignUp}/> */}
+                    {/* <GoogleButton className="g-btn" type="dark" onclick={handleGoogleSignUp}/> */}
                   </div>
-                  <i className="bi bi-google  border-4 border-orange-400 hover:bg-orange-400 px-2 rounded-md "  > LOGIN WITH GOOGLE</i>
+                  <i
+                    className="bi bi-google  border-4 border-orange-400 hover:bg-orange-400 px-2 rounded-md "
+                    onchange={handleGoogleSignUp}
+                  >
+                    {" "}
+                    LOGIN WITH GOOGLE
+                  </i>
                 </div>
               </form>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

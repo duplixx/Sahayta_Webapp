@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom';
 
 
 
-export default function login() {
+export default function Login() {
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -45,7 +45,6 @@ export default function login() {
             <h1 id="menu">Home </h1>
             <h1 id="menu">Sign Up </h1>
           </div>
-
         </div>
       </nav>
       <CardLogin/>
@@ -55,7 +54,6 @@ export default function login() {
           <ul>
             <li>
               HELP ?
-
             </li>
             <li>
               FAQ

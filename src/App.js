@@ -2,9 +2,7 @@ import { useState,useEffect } from 'react';
 import './App.css';
 import {Routes,Route} from "react-router-dom";
 import Splash from './components/loading'
-import Login from './components/login/login';
-
-// import { AuthProvider } from '../src/context/authContext';
+import Login from './components/login/Login';
 import Signup from './components/login/signup';
 import { AuthProvider } from './context/authContext';
 
@@ -17,28 +15,17 @@ function App() {
         setLoading(false)
       },500)
     },[])
-    
+      
   
   return (
-
-          
-
               <>
                 <AuthProvider>
                    <Routes>
-                     <Route path="/login" element={<Login/>} />
-
-                     <Route path="/"   element={<Signup />} />
-
+                     <Route path="/" element={<Login/>} />
                    </Routes>
                 </AuthProvider>
               </>
-                
-            
-
-
-
-        
+                      
 
   );
 }
